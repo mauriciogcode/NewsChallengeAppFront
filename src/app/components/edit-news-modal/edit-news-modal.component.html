@@ -1,0 +1,35 @@
+<p-dialog 
+  [(visible)]="visible" 
+  [style]="{ width: '50vw' }" 
+  [modal]="true" 
+  [draggable]="false" 
+  [resizable]="false"
+  [header]="isNew ? 'Nueva Noticia' : 'Editar Noticia'">
+  
+  <div class="form-container">
+    <div class="field">
+      <label for="title">Título</label>
+      <input type="text" pInputText id="title" [(ngModel)]="editedNews.title" required style="width: 100%">
+    </div>
+    
+    <div class="field">
+      <label for="author">Autor</label>
+      <input type="text" pInputText id="author" [(ngModel)]="editedNews.author" required style="width: 100%">
+    </div>
+    
+    <div class="field">
+      <label for="imageUrl">URL de la imagen</label>
+      <input type="text" pInputText id="imageUrl" [(ngModel)]="editedNews.imageUrl" required style="width: 100%">
+    </div>
+    
+    <div class="field">
+      <label for="body">Contenido</label>
+      <textarea pInputTextarea id="body" [(ngModel)]="editedNews.body" required rows="5" style="width: 100%"></textarea>
+    </div>
+  </div>
+  
+  <ng-template pTemplate="footer">
+    <button pButton label="Cancelar" icon="pi pi-times" (click)="hideDialog()" class="p-button-text"></button>
+    <button pButton label="Guardar" icon="pi pi-check" (click)="saveNews()"></button>
+  </ng-template>
+</p-dialog>

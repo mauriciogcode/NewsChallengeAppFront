@@ -1,0 +1,6 @@
+<div class="sidebar">
+    <h3>Otras noticias</h3>
+    @for (item of news.slice(0, maxItems); track item.id) {
+      <app-news-card [news]="item"></app-news-card>
+    }
+  </div>

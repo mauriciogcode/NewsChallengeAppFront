@@ -1,0 +1,26 @@
+<div class="home-container">
+    <app-navbar (newNewsClick)="openNewNewsModal()"></app-navbar>
+    
+    <div class="main-content" style="display: flex; padding: 1rem; gap: 1rem;">
+      <div class="content" style="flex: 3;">
+        @if (featuredNews) {
+          <app-news-card [news]="featuredNews" [isMainCard]="true"></app-news-card>
+        }
+        
+        <div class="carousel-section" style="margin-top: 2rem;">
+          <h2>Más noticias</h2>
+          <app-news-carousel [news]="carouselNews"></app-news-carousel>
+        </div>
+      </div>
+      
+      <div class="sidebar" style="flex: 1;">
+        <app-news-sidebar [news]="sidebarNews"></app-news-sidebar>
+      </div>
+    </div>
+    
+    <app-edit-news-modal 
+      [(visible)]="showEditModal" 
+      [isNew]="true" 
+      (save)="saveNews($event)">
+    </app-edit-news-modal>
+  </div>

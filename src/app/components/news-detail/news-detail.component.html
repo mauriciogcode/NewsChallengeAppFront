@@ -1,0 +1,15 @@
+<div class="news-detail">
+    <h1>{{ news.title }}</h1>
+    <div class="news-meta">
+      <span>Por: {{ news.author }}</span>
+      <span>{{ news.date | date:'fullDate' }}</span>
+    </div>
+    
+    <div class="news-image">
+      <img [src]="news.imageUrl" [alt]="news.title" style="width: 100%; max-height: 400px; object-fit: cover;">
+    </div>
+    
+    <div class="news-content">
+      <p>{{ news.body }}</p>
+    </div>
+  </div>

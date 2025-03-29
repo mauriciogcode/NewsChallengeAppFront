@@ -1,0 +1,37 @@
+<div class="detail-page-container">
+    <app-navbar 
+      [showEditButtons]="true" 
+      [newsId]="newsId" 
+      (editClick)="openEditModal()" 
+      (deleteClick)="openDeleteModal()">
+    </app-navbar>
+    
+    <div class="main-content" style="display: flex; padding: 1rem; gap: 1rem;">
+      <div class="content" style="flex: 3;">
+        @if (currentNews) {
+          <app-news-detail [news]="currentNews"></app-news-detail>
+        } @else {
+          <p>Cargando noticia...</p>
+        }
+      </div>
+      
+      <div class="sidebar" style="flex: 1;">
+        <app-news-sidebar [news]="relatedNews" [maxItems]="2"></app-news-sidebar>
+      </div>
+    </div>
+    
+    @if (currentNews) {
+      <app-edit-news-modal 
+        [(visible)]="showEditModal" 
+        [news]="currentNews" 
+        [isNew]="false" 
+        (save)="updateNews($event)">
+      </app-edit-news-modal>
+    }
+    
+    <app-delete-news-modal 
+      [(visible)]="showDeleteModal" 
+      [newsId]="newsId" 
+      (confirm)="deleteNews($event)">
+    </app-delete-news-modal>
+  </div>
