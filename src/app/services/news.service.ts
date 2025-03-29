@@ -2,14 +2,15 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { News } from '../models/news.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NewsService {
   private http = inject(HttpClient);
-  private apiUrl = 'api/News';
-
+  private apiUrl = `${environment.apiUrl}/News`;
+  
   getNews(pageNumber: number = 1, pageSize: number = 10): Observable<News[]> {
     const params = new HttpParams()
       .set('pageNumber', pageNumber.toString())
