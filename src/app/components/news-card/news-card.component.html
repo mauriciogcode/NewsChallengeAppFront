@@ -1,22 +1,14 @@
-<!-- <p-card styleClass="p-card-shadow" [style]="isMainCard ? 'width: 100%' : 'width: 100%; margin-bottom: 1rem'"></p-card> -->
-<p-card styleClass="p-card-shadow" >
-    <ng-template pTemplate="header">
-      <img alt="News image" [src]="news.imageUrl" [style]="isMainCard ? 'max-height: 300px; width: 100%; object-fit: cover' : 'max-height: 150px; width: 100%; object-fit: cover'">
-    </ng-template>
-    
-    <ng-template pTemplate="title">
-      <div>
-        <span class="text-xs text-blue-500">{{ news.author }}</span>
-        <h2 class="m-0">{{ news.title }}</h2>
-        <p class="text-xs text-gray-500">{{ news.date | date }}</p>
+<p-card styleClass="p-card-shadow compact-news-card">
+    <div class="news-content-wrapper">
+      <div class="news-image-container">
+        <img alt="News image" [src]="news.imageUrl" class="news-image">
       </div>
-    </ng-template>
-    
-    <ng-template pTemplate="content">
-      <p>{{ getSummary(news.body, isMainCard ? 300 : 100) }}</p>
-    </ng-template>
-    
-    <ng-template pTemplate="footer">
-      <button pButton label="Leer más" icon="pi pi-arrow-right" (click)="navigateToDetail()"></button>
-    </ng-template>
+      <div class="news-content">
+        <div class="news-header">
+          <h3 class="news-title m-0">{{ news.title }}</h3>
+          
+        </div>
+        <a class="read-more-link" (click)="navigateToDetail()">Leer más</a>
+      </div>
+    </div>
   </p-card>

@@ -1,15 +1,19 @@
-<div class="navbar" style="background-color: #c62828; color: white; padding: 0.5rem;">
-    <p-menubar [model]="items">
-      <ng-template pTemplate="start">
-        <span style="font-size: 1.5rem; font-weight: bold; color: white;">MFNews</span>
+<div class="navbar">
+  <p-menubar styleClass="responsive-menubar">
+    <ng-template pTemplate="start">
+        <span class="app-logo" (click)="navigateToHome()">MFNews</span>
       </ng-template>
       <ng-template pTemplate="end">
-        @if (!showEditButtons) {
-          <button pButton label="Nueva Noticia" icon="pi pi-plus" (click)="openNewNewsModal()"></button>
-        } @else {
-          <button pButton label="Eliminar Noticia" icon="pi pi-trash" class="p-button-danger" style="margin-right: 0.5rem;" (click)="openDeleteModal()"></button>
-          <button pButton label="Editar Noticia" icon="pi pi-pencil" (click)="openEditModal()"></button>
-        }
+        <div class="navbar-actions">
+          @if (!showEditButtons) {
+            <button pButton label="Nueva Noticia" icon="pi pi-plus" (click)="openNewNewsModal()" class="p-button-success new-article-btn"></button>
+          } @else {
+            <div class="button-group">
+              <button pButton icon="pi pi-trash" class="p-button-danger" (click)="openDeleteModal()"></button>
+              <button pButton icon="pi pi-pencil" (click)="openEditModal()"></button>
+            </div>
+          }
+        </div>
       </ng-template>
     </p-menubar>
   </div>

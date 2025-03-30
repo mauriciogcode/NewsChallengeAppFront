@@ -1,8 +1,8 @@
 <div class="carousel-container">
     <p-carousel [value]="news" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
       <ng-template let-newsItem pTemplate="item">
-        <div class="carousel-item" style="margin: 0.5rem; text-align: center;">
-          <img [src]="newsItem.imageUrl" [alt]="newsItem.title" class="carousel-image" style="width: 100%; height: 150px; object-fit: cover;">
+        <div class="carousel-item">
+          <img [src]="newsItem.imageUrl" [alt]="newsItem.title" class="carousel-image">
           <h5>{{ newsItem.title }}</h5>
           <p>{{ newsItem.date | date }}</p>
           <button pButton label="Ver más" icon="pi pi-arrow-right" (click)="navigateToDetail(newsItem.id)"></button>

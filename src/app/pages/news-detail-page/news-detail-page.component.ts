@@ -7,11 +7,13 @@ import { EditNewsModalComponent } from '../../components/edit-news-modal/edit-ne
 import { DeleteNewsModalComponent } from '../../components/delete-news-modal/delete-news-modal.component';
 import { News } from '../../models/news.model';
 import { NewsService } from '../../services/news.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-news-detail-page',
   standalone: true,
   imports: [
+    CommonModule,
     NavbarComponent, 
     NewsDetailComponent, 
     NewsSidebarComponent,

@@ -1,22 +1,20 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { NewsCardComponent } from '../../components/news-card/news-card.component';
 import { NewsSidebarComponent } from '../../components/news-sidebar/news-sidebar.component';
 import { NewsCarouselComponent } from '../../components/news-carousel/news-carousel.component';
-import { EditNewsModalComponent } from '../../components/edit-news-modal/edit-news-modal.component';
 import { News } from '../../models/news.model';
 import { NewsService } from '../../services/news.service';
+import { NewsCardPrincipalComponent } from '../../components/news-card-principal/news-card-principal.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
-    NavbarComponent, 
-    NewsCardComponent, 
-    NewsSidebarComponent, 
-    NewsCarouselComponent,
-    EditNewsModalComponent
-  ],
+    NavbarComponent,
+    NewsSidebarComponent,
+    NewsCarouselComponent,    
+    NewsCardPrincipalComponent
+],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

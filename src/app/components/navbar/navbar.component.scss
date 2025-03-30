@@ -1,0 +1,44 @@
+.navbar {
+    background-color: #cc0000;
+    color: white;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .app-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .navbar-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  
+  :host ::ng-deep .p-menubar {
+    background-color: #cc0000;
+    border: none;
+    border-radius: 0;
+    padding: 0.5rem 1rem;
+  }
+  
+  :host ::ng-deep .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link {
+    color: white;
+  }
+  
+  :host ::ng-deep .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  :host ::ng-deep .p-menubar .p-menubar-end {
+    margin-left: auto;
+  }
+  

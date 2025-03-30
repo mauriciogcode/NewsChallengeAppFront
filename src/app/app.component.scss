@@ -1,0 +1,30 @@
+/* Estilos base */
+.p-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Solo los estilos específicos que PrimeFlex no cubre */
+.sidebar-container {
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+}
+
+/* En responsive quitamos el sticky del sidebar */
+@media (max-width: 768px) {
+  .sidebar-container {
+    position: static;
+  }
+}
+
+/* Ajustes adicionales que no están en PrimeFlex */
+.p-menubar {
+  margin-bottom: 1rem;
+}
+
+.p-card-shadow {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

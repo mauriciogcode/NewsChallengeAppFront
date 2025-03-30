@@ -3,15 +3,16 @@ import { News } from '../../models/news.model';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-news-card',
+  selector: 'app-news-card-principal',
   standalone: true,
-  imports: [CardModule, ButtonModule],
-  templateUrl: './news-card.component.html',
-  styleUrl: './news-card.component.scss'
+  imports: [CardModule, ButtonModule, DatePipe],
+  templateUrl: './news-card-principal.component.html',
+  styleUrl: './news-card-principal.component.scss'
 })
-export class NewsCardComponent {
+export class NewsCardPrincipalComponent {
   @Input() news!: News;
   @Input() isMainCard: boolean = false;
   
