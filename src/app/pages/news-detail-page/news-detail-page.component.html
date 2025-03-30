@@ -34,7 +34,8 @@
   <app-delete-news-modal 
     [(visible)]="showDeleteModal" 
     [newsId]="newsId" 
-    (confirm)="deleteNews($event)"
-    >
+    (confirm)="deleteNews($event)">
   </app-delete-news-modal>
+  
+  <p-toast position="top-center"></p-toast>
 </div>

@@ -6,11 +6,11 @@
     <ng-template pTemplate="end">
       <div class="navbar-actions">
         @if (!showEditButtons) {
-          <button pButton label="Nueva Noticia" icon="pi pi-plus" (click)="onNewNewsClick()" class="p-button-primary"></button>
+          <button pButton label="Crear Noticia" icon="pi pi-plus" (click)="onNewNewsClick()" class="p-button-primary"></button>
         } @else {
           <div class="button-group">
-            <button pButton icon="pi pi-trash" class="p-button-danger" (click)="openDeleteModal()"></button>
-            <button pButton icon="pi pi-pencil" (click)="openEditModal()"></button>
+            <button pButton icon="pi pi-trash" class="p-button-danger" (click)="openDeleteModal()">Eliminar Noticia</button>
+            <button pButton icon="pi pi-pencil" (click)="openEditModal()">Editar Noticia</button>
           </div>
         }
       </div>
