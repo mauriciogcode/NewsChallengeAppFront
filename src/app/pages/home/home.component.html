@@ -1,5 +1,8 @@
 <div class="p-container">
-  <app-navbar (newNewsClick)="openNewNewsModal()"></app-navbar>
+  <app-navbar 
+    (newNewsClick)="openNewNewsModal()"
+    [showEditButtons]="false">
+  </app-navbar>
   
   <div class="grid home-layout mt-2">
     <div class="col-12 md:col-8 lg:col-9">
@@ -17,4 +20,5 @@
       <app-news-carousel [news]="carouselNews"></app-news-carousel>
     </div>
   </div>
+  <app-create-news-modal (close)="onModalClose($event)"></app-create-news-modal>
 </div>

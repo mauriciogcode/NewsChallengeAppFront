@@ -1,10 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { NewsSidebarComponent } from '../../components/news-sidebar/news-sidebar.component';
 import { NewsCarouselComponent } from '../../components/news-carousel/news-carousel.component';
 import { News } from '../../models/news.model';
 import { NewsService } from '../../services/news.service';
 import { NewsCardPrincipalComponent } from '../../components/news-card-principal/news-card-principal.component';
+import { CreateNewsModalComponent } from '../../components/create-news-modal/create-news-modal.component';
 
 @Component({
   selector: 'app-home',
@@ -13,12 +14,16 @@ import { NewsCardPrincipalComponent } from '../../components/news-card-principal
     NavbarComponent,
     NewsSidebarComponent,
     NewsCarouselComponent,    
-    NewsCardPrincipalComponent
+    NewsCardPrincipalComponent,
+    CreateNewsModalComponent
+
 ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
+  @ViewChild(CreateNewsModalComponent) createNewsModal!: CreateNewsModalComponent;
+
   private newsService = inject(NewsService);
   
   allNews: News[] = [];
@@ -38,22 +43,21 @@ export class HomeComponent implements OnInit {
       this.allNews = news;
       
       if (news.length > 0) {
-        const sortedNews = [...news].sort((a, b) => 
-          new Date(b.date).getTime() - new Date(a.date).getTime()
-        );
-        
-        this.featuredNews = sortedNews[0];
-        
-        this.sidebarNews = sortedNews.slice(1, 4);
-        
-        this.carouselNews = sortedNews;
+        this.featuredNews = news[0];
+        this.sidebarNews = news.slice(1, 4);
+        this.carouselNews = news;
       }
     });
   }
   
-  openNewNewsModal() {
-    this.newNews = {};
-    this.showEditModal = true;
+  openNewNewsModal(): void {
+    this.createNewsModal.show();
+  }
+
+  onModalClose(refresh: boolean): void {
+    if (refresh) {
+      this.loadNews();
+    }
   }
   
   saveNews(news: News) {

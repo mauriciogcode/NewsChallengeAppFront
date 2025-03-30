@@ -11,10 +11,11 @@ export class NewsService {
   private http = inject(HttpClient);
   private apiUrl = `${environment.apiUrl}/News`;
   
-  getNews(pageNumber: number = 1, pageSize: number = 10): Observable<News[]> {
+  getNews(pageNumber: number = 1, pageSize: number = 10, orderByDescending: boolean = true): Observable<News[]> {
     const params = new HttpParams()
       .set('pageNumber', pageNumber.toString())
-      .set('pageSize', pageSize.toString());
+      .set('pageSize', pageSize.toString())
+      .set('orderByDescending', orderByDescending.toString());
     
     return this.http.get<News[]>(this.apiUrl, { params });
   }
