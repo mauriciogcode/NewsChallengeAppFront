@@ -26,7 +26,6 @@
     <app-edit-news-modal 
       [(visible)]="showEditModal" 
       [news]="currentNews" 
-      [isNew]="false" 
       (save)="updateNews($event)">
     </app-edit-news-modal>
   }
@@ -37,5 +36,4 @@
     (confirm)="deleteNews($event)">
   </app-delete-news-modal>
   
-  <p-toast position="top-center"></p-toast>
 </div>

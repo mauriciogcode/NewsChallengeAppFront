@@ -1,71 +1,54 @@
-<p-toast position="top-center"></p-toast>
-
 <p-dialog 
   [(visible)]="visible" 
+  [style]="{width: '50vw'}" 
   [modal]="true" 
-  [style]="{width: '400px', padding: '0'}" 
-  [showHeader]="false"
   [draggable]="false" 
   [resizable]="false"
-  [closable]="!loading"
-  styleClass="custom-modal">
+  (onHide)="hide()"
+  header="Editar noticia">
   
-  <div class="modal-container">
-    <div class="modal-header">
-      <h3>Crear Noticia</h3>
+  <form [formGroup]="newsForm" *ngIf="news">
+    <div class="field">
+      <label for="title">Título *</label>
+      <input id="title" type="text" pInputText formControlName="title" class="w-full" 
+        [ngClass]="{'ng-invalid ng-dirty': newsForm.get('title')?.invalid && newsForm.get('title')?.touched}">
+      <small class="p-error" *ngIf="newsForm.get('title')?.invalid && newsForm.get('title')?.touched">
+        El título es requerido.
+      </small>
     </div>
     
-    <div class="modal-body">
-      <form [formGroup]="newsForm" class="p-fluid">
-        <div class="form-group">
-          <label>Completar los siguientes datos:</label>
-        </div>
-        
-        <div class="form-group">
-          <label for="imageUrl">Url</label>
-          <input id="imageUrl" type="text" formControlName="imageUrl" class="form-control" [disabled]="loading">
-          <small *ngIf="newsForm.get('imageUrl')?.invalid && newsForm.get('imageUrl')?.touched" class="error-message">
-            Este campo es requerido
-          </small>
-        </div>
-        
-        <div class="form-group">
-          <label for="author">Autor</label>
-          <input id="author" type="text" formControlName="author" class="form-control" [disabled]="loading">
-          <small *ngIf="newsForm.get('author')?.invalid && newsForm.get('author')?.touched" class="error-message">
-            Este campo es requerido
-          </small>
-        </div>
-        
-        <div class="form-group">
-          <label for="title">Título</label>
-          <input id="title" type="text" formControlName="title" class="form-control" [disabled]="loading">
-          <small *ngIf="newsForm.get('title')?.invalid && newsForm.get('title')?.touched" class="error-message">
-            Este campo es requerido
-          </small>
-        </div>
-        
-        <div class="form-group">
-          <label for="subtitle">Subtítulo</label>
-          <input id="subtitle" type="text" formControlName="subtitle" class="form-control" [disabled]="loading">
-        </div>
-        
-        <div class="form-group">
-          <label for="body">Descripción</label>
-          <textarea id="body" formControlName="body" class="form-control" rows="5" [disabled]="loading"></textarea>
-          <small *ngIf="newsForm.get('body')?.invalid && newsForm.get('body')?.touched" class="error-message">
-            Este campo es requerido
-          </small>
-        </div>
-      </form>
+    <div class="field">
+      <label for="author">Autor *</label>
+      <input id="author" type="text" pInputText formControlName="author" class="w-full"
+        [ngClass]="{'ng-invalid ng-dirty': newsForm.get('author')?.invalid && newsForm.get('author')?.touched}">
+      <small class="p-error" *ngIf="newsForm.get('author')?.invalid && newsForm.get('author')?.touched">
+        El autor es requerido.
+      </small>
     </div>
     
-    <div class="modal-footer">
-      <button class="btn-cancel" (click)="hide()" [disabled]="loading">Cancelar</button>
-      <button class="btn-save" (click)="onSave()" [disabled]="loading">
-        <span *ngIf="!loading">Guardar</span>
-        <span *ngIf="loading">Guardando...</span>
-      </button>
+    <div class="field">
+      <label for="imageUrl">URL de Imagen *</label>
+      <input id="imageUrl" type="text" pInputText formControlName="imageUrl" class="w-full"
+        [ngClass]="{'ng-invalid ng-dirty': newsForm.get('imageUrl')?.invalid && newsForm.get('imageUrl')?.touched}">
+      <small class="p-error" *ngIf="newsForm.get('imageUrl')?.invalid && newsForm.get('imageUrl')?.touched">
+        La URL de imagen es requerida.
+      </small>
     </div>
-  </div>
+    
+    <div class="field">
+      <label for="body">Contenido *</label>
+      <textarea id="body" pInputText formControlName="body" rows="5" class="w-full"
+        [ngClass]="{'ng-invalid ng-dirty': newsForm.get('body')?.invalid && newsForm.get('body')?.touched}"></textarea>
+      <small class="p-error" *ngIf="newsForm.get('body')?.invalid && newsForm.get('body')?.touched">
+        El contenido es requerido.
+      </small>
+    </div>
+  </form>
+  
+  <ng-template pTemplate="footer">
+    <button pButton label="Cancelar" icon="pi pi-times" (click)="hide()" class="p-button-text"></button>
+    <button pButton label="Guardar" icon="pi pi-check" (click)="onSave()" class="p-button-primary"></button>
+  </ng-template>
 </p-dialog>
+
+<app-spinner [visible]="spinnerService.loading" [message]="spinnerService.message"></app-spinner>

@@ -4,9 +4,11 @@ import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } 
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
 import { NewsService } from '../../services/news.service';
+import { ToastService } from '../../services/toast.service';
+import { SpinnerService } from '../../services/spinner.service';
+import { SpinnerComponent } from '../../shared/spinner/spinner.component';
+import { catchError, concatMap, finalize, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-create-news-modal',
@@ -18,9 +20,8 @@ import { NewsService } from '../../services/news.service';
     DialogModule, 
     InputTextModule, 
     ButtonModule,
-    ToastModule
+    SpinnerComponent
   ],
-  providers: [MessageService],
   templateUrl: './create-news-modal.component.html',
   styleUrls: ['./create-news-modal.component.scss']
 })
@@ -28,13 +29,13 @@ export class CreateNewsModalComponent {
   @Output() close = new EventEmitter<boolean>();
   
   visible: boolean = false;
-  loading: boolean = false;
   newsForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private newsService: NewsService,
-    private messageService: MessageService
+    private toastService: ToastService,
+    public spinnerService: SpinnerService
   ) {
     this.newsForm = this.fb.group({
       imageUrl: ['', Validators.required],
@@ -62,51 +63,58 @@ export class CreateNewsModalComponent {
     });
   }
 
-  onSave(): void {
+  async onSave(): Promise<void> {
     if (this.newsForm.valid) {
-      this.loading = true;
+      this.spinnerService.show('Creando noticia...');
       const newsData = {
         title: this.newsForm.value.title,
         body: this.newsForm.value.body,
         imageUrl: this.newsForm.value.imageUrl,
         author: this.newsForm.value.author
       };
-
-      this.newsService.createNews(newsData).subscribe({
-        next: (id) => {
-          this.loading = false;
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Éxito',
-            detail: `Noticia creada correctamente con ID: ${id}`,
-            life: 3000
-          });
+  
+      this.newsService.createNews(newsData).pipe(
+        concatMap(() => {
+          return of(this.showSuccessToast());
+        }),
+        tap(() => {
+          this.spinnerService.hide(); 
+        }),
+        finalize(() => {
           setTimeout(() => {
             this.hide();
             this.close.emit(true);
-          }, 1500);
-        },
-        error: (error) => {
-          this.loading = false;
+          }, 1000);
+        }),
+        catchError((error) => {
           console.error('Error al crear la noticia:', error);
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'No se pudo crear la noticia. Por favor, intente nuevamente.',
-            life: 5000
-          });
-        }
-      });
+          this.toastService.error(
+            'Error',
+            'No se pudo crear la noticia. Por favor, intente nuevamente.',
+            5000
+          );
+          this.spinnerService.hide(); 
+          return of(null); 
+        })
+      ).subscribe();
     } else {
       Object.keys(this.newsForm.controls).forEach(key => {
         this.newsForm.get(key)?.markAsTouched();
       });
-      this.messageService.add({
-        severity: 'warn',
-        summary: 'Formulario incompleto',
-        detail: 'Por favor, complete todos los campos requeridos.',
-        life: 3000
-      });
+      this.toastService.warning(
+        'Formulario incompleto',
+        'Por favor, complete todos los campos requeridos.',
+        3000
+      );
     }
   }
+  
+  private showSuccessToast(): void {
+    this.toastService.success(
+      'Éxito',
+      `Noticia creada correctamente.`,
+      3000
+    );
+  }
+  
 }

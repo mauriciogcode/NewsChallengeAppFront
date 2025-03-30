@@ -1,109 +1,109 @@
 :host ::ng-deep .custom-modal {
-    .p-dialog-content {
-      padding: 0;
-      overflow: hidden;
-    }
+  .p-dialog-content {
+    padding: 0;
+    overflow: hidden;
   }
+}
+
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.modal-header {
+  padding: 10px 15px;
+  border-bottom: 1px solid #e5e5e5;
+  background-color: #fff;
   
-  .modal-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+  h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #f00;
+    font-weight: bold;
   }
+}
+
+.modal-body {
+  padding: 15px;
   
-  .modal-header {
-    padding: 10px 15px;
-    border-bottom: 1px solid #e5e5e5;
-    background-color: #fff;
+  .form-group {
+    margin-bottom: 12px;
     
-    h3 {
-      margin: 0;
-      font-size: 18px;
-      color: #f00;
-      font-weight: bold;
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
     }
-  }
-  
-  .modal-body {
-    padding: 15px;
     
-    .form-group {
-      margin-bottom: 12px;
-      
-      label {
-        display: block;
-        margin-bottom: 5px;
-        font-size: 14px;
-      }
-      
-      .form-control {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 14px;
-        
-        &:focus {
-          outline: none;
-          border-color: #aaa;
-        }
-      }
-      
-      textarea.form-control {
-        resize: none;
-        min-height: 80px;
-      }
-    }
-  }
-  
-  .modal-footer {
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px 15px;
-    border-top: 1px solid #e5e5e5;
-    background-color: #f5f5f5;
-    
-    button {
-      padding: 8px 15px;
-      border: none;
+    .form-control {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
       border-radius: 4px;
       font-size: 14px;
-      cursor: pointer;
-      margin-left: 10px;
       
-      &.btn-cancel {
-        background-color: transparent;
-        color: #ff7034;
-        
-        &:hover {
-          text-decoration: underline;
-        }
+      &:focus {
+        outline: none;
+        border-color: #aaa;
       }
+    }
+    
+    textarea.form-control {
+      resize: none;
+      min-height: 80px;
+    }
+  }
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 15px;
+  border-top: 1px solid #e5e5e5;
+  background-color: #f5f5f5;
+  
+  button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 10px;
+    
+    &.btn-cancel {
+      background-color: transparent;
+      color: #ff7034;
       
-      &.btn-save {
-        background-color: #ff7034;
-        color: white;
-        
-        &:hover {
-          background-color: darken(#ff7034, 10%);
-        }
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    
+    &.btn-save {
+      background-color: #ff7034;
+      color: white;
+      
+      &:hover {
+        background-color: darken(#ff7034, 10%);
       }
     }
   }
+}
 
 .error-message {
-    color: #f44336;
-    font-size: 12px;
-    margin-top: 4px;
-    display: block;
-  }
-  
-  .form-control:disabled {
-    background-color: #f5f5f5;
-    cursor: not-allowed;
-  }
-  
-  button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
+  color: #f44336;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
+
+.form-control:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

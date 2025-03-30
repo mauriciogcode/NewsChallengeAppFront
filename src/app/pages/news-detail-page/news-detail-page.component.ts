@@ -8,8 +8,8 @@ import { DeleteNewsModalComponent } from '../../components/delete-news-modal/del
 import { News } from '../../models/news.model';
 import { NewsService } from '../../services/news.service';
 import { CommonModule } from '@angular/common';
-import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
+import { ToastService } from '../../services/toast.service';
+
 
 @Component({
   selector: 'app-news-detail-page',
@@ -21,9 +21,9 @@ import { ToastModule } from 'primeng/toast';
     NewsSidebarComponent,
     EditNewsModalComponent,
     DeleteNewsModalComponent,
-    ToastModule
+    
   ],
-  providers: [MessageService],
+  providers: [],
   templateUrl: './news-detail-page.component.html',
   styleUrl: './news-detail-page.component.scss'
 })
@@ -31,7 +31,7 @@ export class NewsDetailPageComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private newsService = inject(NewsService);
-  private messageService = inject(MessageService);
+  
   
   newsId: number = 0;
   currentNews: News | null = null;
@@ -39,6 +39,10 @@ export class NewsDetailPageComponent implements OnInit {
   
   showEditModal = false;
   showDeleteModal = false;
+
+  constructor(
+    private toastService: ToastService
+  ) {}
   
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -55,12 +59,8 @@ export class NewsDetailPageComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error al cargar la noticia:', error);
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'No se pudo cargar la noticia solicitada',
-          life: 3000
-        });
+        this.toastService.error('Error', 'No se pudo cargar la noticia solicitada', 3000);
+
         this.router.navigate(['/']);
       }
     });
@@ -92,25 +92,11 @@ export class NewsDetailPageComponent implements OnInit {
     
     this.newsService.updateNews(updatedNews).subscribe({
       next: () => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Éxito',
-          detail: 'Noticia actualizada correctamente',
-          life: 3000
-        });
-        
-        setTimeout(() => {
-          this.router.navigate(['/']);
-        }, 1500);
+        this.toastService.success('Éxito', 'Noticia actualizada correctamente', 3000);
       },
       error: (error) => {
         console.error('Error al actualizar la noticia:', error);
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'No se pudo actualizar la noticia',
-          life: 3000
-        });
+        this.toastService.error('Error', 'No se pudo actualizar la noticia', 3000);
       }
     });
   }
@@ -118,12 +104,10 @@ export class NewsDetailPageComponent implements OnInit {
   deleteNews(id: number) {
     this.newsService.deleteNews(id).subscribe({
       next: () => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Éxito',
-          detail: 'Noticia eliminada correctamente',
-          life: 3000
-        });
+        this.toastService.success('Éxito', 'Noticia eliminada correctamente', 3000);
+
+        
+      
         
         setTimeout(() => {
           this.router.navigate(['/']);
@@ -131,12 +115,7 @@ export class NewsDetailPageComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error al eliminar la noticia:', error);
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'No se pudo eliminar la noticia',
-          life: 3000
-        });
+        this.toastService.error('Error', 'No se pudo eliminar la noticia', 3000);
       }
     });
   }
