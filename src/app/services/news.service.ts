@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 })
 export class NewsService {
   private http = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}/News`;
+  apiUrl = `${environment.apiUrl}/News`;
   
   getNews(pageNumber: number = 1, pageSize: number = 10, orderByDescending: boolean = true): Observable<News[]> {
     const params = new HttpParams()
